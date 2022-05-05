@@ -1,15 +1,18 @@
 <template>
   <div>
     <h3>Home</h3>
-    <section>
-      {{ info }}
-    </section>
-    <br />
-    <ul>
-      <li v-for="item of items" :key="item.title">
-        {{ item.name }}
-      </li>
-    </ul>
+    <div class="row mt-4">
+      <div class="col mb-4" v-for="item of items" :key="item.title">
+        <div class="card" style="width: 18rem;">
+         <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+          <div class="card-body">
+            <h5 class="card-title">{{ item.address.city }}</h5>
+            <p class="card-text">{{ item.name }}</p>
+            <a href="#" class="btn btn-primary">Ver historia</a>
+          </div>
+        </div>
+      </div>
+    </div>    
   </div>
 </template>
 
@@ -19,7 +22,6 @@ export default {
   data() {
     return {
       items: [],
-      info: null,
     };
   },
   async created() {
@@ -32,13 +34,12 @@ export default {
       console.log(error);
     }
   },
-  mounted() {
-    axios
-      .get("https://api.coindesk.com/v1/bpi/currentprice.json")
-      .then((response) => (this.info = response));
-  },
+
 };
 </script>
 
 <style>
+
+
+
 </style>
