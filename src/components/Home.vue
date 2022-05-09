@@ -1,6 +1,16 @@
 <template>
   <div>
     <h3>Home</h3>
+    <br>
+    <h1>Estrenos</h1>
+    <br>
+
+    
+    <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" @click="buscarTitulo" type="submit">Search</button>
+      </form>
+    
     <div class="row mt-4">
       <div class="col mb-4" v-for="item of items" :key="item.title">
         <div class="card" style="width: 18rem;">
@@ -34,6 +44,11 @@ export default {
       console.log(error);
     }
   },
+  methods:{
+    buscarTitulo(titulo) {
+      return this.items.filter(x => x.title == titulo)
+    }
+  }
 
 };
 </script>

@@ -43,19 +43,19 @@
                          <ErrorMessage name="password" class="error-feedback" />
                       </div>           
                     </div>
-                    <div class="form-group mt-3 mb-0">
-                      <button
-                        class="form-control btn btn-outline-danger btn-block"
-                        v-on:click="Cancel">
-                        Cancel
-                      </button>
-                    </div>
                     <div class="form-group mt-2 mb-0">
                       <button
                         class="form-control btn btn-primary btn-block">
                         Ingresar
                       </button>
                     </div>
+                    <div class="form-group mt-3 mb-0">
+                      <button
+                        class="form-control btn btn-outline-danger btn-block"
+                        v-on:click="Cancel">
+                        Cancel
+                      </button>
+                    </div>                    
                   </form>
                 </div>
               </div>
