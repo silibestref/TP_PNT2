@@ -1,14 +1,9 @@
 <template>
   <div>
-    <h3>Home</h3>
-    <br>
-    <h1>Estrenos</h1>
-    <br>
-
-    
+    <h3>Estrenos</h3>    
     <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" @click="buscarTitulo" type="submit">Search</button>
+        <button class="btn btn-outline-success" @click="buscarTitulo" type="submit"><font-awesome-icon icon="search"/></button>
       </form>
     
     <div class="row mt-4">
@@ -28,6 +23,7 @@
 
 <script>
 import axios from "axios";
+const APIKEY = '5044eb20a459c2146512b436bed6753d';
 export default {
   data() {
     return {

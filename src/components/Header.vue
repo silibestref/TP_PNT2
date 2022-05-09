@@ -1,13 +1,13 @@
 <template>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-  <a class="navbar-brand ms-4" >Proyecto</a>
+  <a class="navbar-brand ms-4" >{{autor}}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <router-link class="nav-link" to="/"><font-awesome-icon icon="home" /> </router-link>
+        <router-link class="nav-link" to="/"><font-awesome-icon icon="home" /></router-link>
       </li> 
     </ul>
   </div>
@@ -47,6 +47,6 @@
 <script>
 
 export default {
-    
+    props: ['autor']
 }
 </script>
