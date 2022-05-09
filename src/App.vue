@@ -6,30 +6,27 @@
 
 <div id="app">
 
-  <Cabecera/>
+  <Header autor="MoviesYa!"/>
 
-  <div class="container contenedor"> 
+  <div class="container"> 
     <router-view></router-view>
   </div>
 
- <Pie autor="Movies Ya!"/>
+ <Footer autor="MoviesYa!"/>
   
 </div>
 </template>
 
 <script>
-import Pie from './components/pie.vue'
-import Cabecera from './components/cabecera.vue'
+import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
 export default {
   components: {
-        Pie, Cabecera
+        Footer, Header
     },
 }
 </script>
 
 <style>
  @import "./assets/base.css";
-.contenedor {
-  margin: 8%;
-}
 </style>
