@@ -7,13 +7,12 @@
       </form>
     
     <div class="row mt-4">
-      <div class="col mb-4" v-for="item of items" :key="item.title">
-        <div class="card" style="width: 18rem;">
-         <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+      <div class="col mb-4" v-for="pelicula of peliculas" :key="pelicula">
+        <div class="card pt-1" style="width:9rem;">
+          <img class="img-thumbnail" style="display: block;-webkit-user-select: none;margin: auto;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" :src="pelicula.image">
           <div class="card-body">
-            <h5 class="card-title">{{ item.address.city }}</h5>
-            <p class="card-text">{{ item.name }}</p>
-            <a href="#" class="btn btn-primary">Ver historia</a>
+            <h6 class="card-title">{{ pelicula.title }}</h6>
+            <!-- <a href="#" class="btn btn-primary">Ver historia</a> -->
           </div>
         </div>
       </div>
@@ -23,26 +22,27 @@
 
 <script>
 import axios from "axios";
-const APIKEY = '5044eb20a459c2146512b436bed6753d';
+//const APIKEY = 'k_s3yrob4z';
+const APIKEY = 'k_x7a3v98e';
 export default {
   data() {
     return {
-      items: [],
+      peliculas: [],
     };
   },
   async created() {
     try {
       const res = await axios.get(
-        `https://jsonplaceholder.typicode.com/users`
+        `https://imdb-api.com/en/API/MostPopularMovies/${APIKEY}`
       );
-      this.items = res.data;
+      this.peliculas = res.data.items;
     } catch (error) {
       console.log(error);
     }
   },
   methods:{
     buscarTitulo(titulo) {
-      return this.items.filter(x => x.title == titulo)
+      return this.peliculas.filter(x => x.title == titulo)
     }
   }
 
