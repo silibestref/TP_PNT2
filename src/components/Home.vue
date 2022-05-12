@@ -5,6 +5,7 @@
     <form class="d-flex" >
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" v-model="peli.titulo">
         <button class="btn btn-outline-success"  type="submit" @click="buscarTitulo"><font-awesome-icon icon="search"/></button>
+        <button v-if="visible" @click="mostrarPeliculas" type="button" class="btn btn-danger mx-2"><font-awesome-icon icon="refresh"/></button>
     </form>
 
 
@@ -20,7 +21,6 @@
       </div>
     </div>  
 
-    <button v-if="visible" @click="mostrarPeliculas" type="button" class="btn btn-success">Volver</button>
 
   </div>
 </template>
@@ -57,9 +57,11 @@ export default {
   methods:{
     buscarTitulo() {
       this.visible = true;
-      this.peliculas = this.peliculas.filter(x => x.title === this.peli.titulo)      
+      this.peliculas = this.peliculas.filter(x => x.title.match(this.peli.titulo))      
     },
     mostrarPeliculas(){
+      this.peli.titulo = '';
+      this.visible = false;
       this.peliculas = [...this.listaAux];
     }
 
