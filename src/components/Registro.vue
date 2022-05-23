@@ -11,7 +11,7 @@
                     <Form :validation-schema="schema">
                       <div class="input-group mb-3">
                         <span class="input-group-text"><font-awesome-icon icon="user"/></span>
-                        <Field name="fullName" type="text" class="form-control" placeholder="Nombre completo"/>
+                        <Field v-model="usuario.fullName" name="fullName" type="text" class="form-control" placeholder="Nombre completo"/>
                       </div>   
                        <div class="input-errors mb-3">
                          <ErrorMessage name="fullName" class="error-feedback" />
@@ -19,7 +19,7 @@
                      <div class="form-group">
                     <div class="input-group flex-nowrap mb-2">
                       <span class="input-group-text" id="addon-wrapping"><font-awesome-icon icon="calendar-check"/></span>
-                        <Field name="age" type="number" class="form-control" placeholder="Edad"/>
+                        <Field v-model="usuario.age" name="age" type="number" class="form-control" placeholder="Edad"/>
                       </div>
                       <div class="input-errors mb-3">
                          <ErrorMessage name="age" class="error-feedback" />
@@ -28,7 +28,7 @@
                     <div class="form-group">
                     <div class="input-group flex-nowrap mb-2">
                       <span class="input-group-text" id="addon-wrapping"><font-awesome-icon icon="envelope"/></span>
-                        <Field name="email" type="text" class="form-control" placeholder="Email"/>
+                        <Field v-model="usuario.email" name="email" type="text" class="form-control" placeholder="Email"/>
                       </div>
                       <div class="input-errors mb-3">
                          <ErrorMessage name="email" class="error-feedback" />
@@ -37,7 +37,7 @@
                     <div class="form-group mb-2">
                     <div class="input-group flex-nowrap">
                       <span class="input-group-text" id="addon-wrapping"><font-awesome-icon icon="lock"/></span>
-                       <Field name="password" type="password" class="form-control" placeholder="Password"/>
+                       <Field v-model="usuario.password" name="password" type="password" class="form-control" placeholder="Password"/>
                       </div>
                       <div class="input-errors mb-3">
                          <ErrorMessage name="password" class="error-feedback" />
@@ -45,7 +45,7 @@
                     </div>
                     <div class="form-group mt-2 mb-0">
                       <button
-                        class="form-control btn btn-primary btn-block">
+                        class="form-control btn btn-primary btn-block" v-on:click="enviarDatos">
                         Ingresar
                       </button>
                     </div>
@@ -68,6 +68,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
+import axios from "axios";
 export default {
   name: "Registro",
   components: {
@@ -100,8 +101,22 @@ export default {
       loading: false,
       message: "",
       schema,
-    };
+      usuario : {
+        fullName: '',
+        age: '',
+        email: '',
+        password:''   
+      }
+    };    
   }, 
+  methods: {
+    async enviarDatos()  {
+      console.log('se ejecuta el metodo')
+      const datos = this.usuario;
+      const respuesta = await axios.post('http://localhost:5000/usuario/registrar', datos);
+      alert(`Codigo de respuesta: ${respuesta.status}`);
+    }
+  },
 };
 </script>
 
