@@ -44,12 +44,11 @@
       </div>
     </div>
 
-
-
   </div>
 </template>
 
 <script>
+
 import { useStore } from "../store/storeCarrito.js";
 import { storeToRefs } from 'pinia'
 import axios from "axios";
@@ -61,14 +60,14 @@ export default {
   setup() {
     const store = useStore();
     const { listaAlquileres } = storeToRefs(store)
+    const { listaAux } = storeToRefs(store)
     return {
-      store, listaAlquileres
+      store, listaAlquileres, listaAux
     };
   },
   data() {
     return {
       peliculas: [],
-      listaAux: [],
       selected:{id:0, title:'Elija una pelicula', year:'', ranking:0}
     }
   },
@@ -81,7 +80,7 @@ export default {
         `https://imdb-api.com/en/API/MostPopularMovies/${APIKEY}`
       );
       this.peliculas = res.data.items;
-      this.listaAux = [...this.peliculas];
+      this.store.listaAux = [...this.peliculas];
     } 
     catch (error) {
       console.log(error);
