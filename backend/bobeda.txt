@@ -1,1 +1,1 @@
-{"fullName":"Federico","age":"33","email":"federicogamabunta@gmail.com","password":"fefe16"}
+{"fullName":"Martin","age":"32","email":"martin@gmail.com","password":"martin1234"},{"fullName":"federico","age":"33","email":"federico@gmail.com","password":"federico1234"},{"fullName":"paola","age":"28","email":"paola@gmail.com","password":"paola1234"}

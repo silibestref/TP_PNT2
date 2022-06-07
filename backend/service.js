@@ -1,7 +1,5 @@
 const fs = require('fs');
 
-let usuarios;
-
 
 const guardarUsuario = function(usuario){
     data = JSON.stringify(usuario);
@@ -20,14 +18,25 @@ const guardarUsuario = function(usuario){
     });
 }
 
-const listarUsuarios = function(){
-    const contenido = fs.readFileSync('./bobeda.txt');
-    usuarios = JSON.parse('[' + contenido + ']'); 
+const validarUsuario = function(user){
+    let autenticado = false;    
+    const listaUsuarios = listarUsuarios.call();
+    /*
+    for (let i = 0; i<2; i++) {
+        console.log(listaUsuarios[i]);
+    }
+    */
+    for (let u of listaUsuarios) {        
+		if (u.password == user.password) {
+            autenticado = true;
+        }
+	} 
+    return autenticado;
 }
 
-/*
-listarUsuarios();
-console.log(usuarios);
-*/
+const listarUsuarios = function(){
+    const contenido = fs.readFileSync('./bobeda.txt');
+    return JSON.parse('[' + contenido + ']'); 
+}
 
-module.exports = {guardarUsuario};
+module.exports = {guardarUsuario,validarUsuario};

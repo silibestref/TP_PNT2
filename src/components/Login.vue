@@ -12,7 +12,7 @@
                     <div class="form-group">
                     <div class="input-group flex-nowrap mb-2">
                       <span class="input-group-text" id="addon-wrapping"><font-awesome-icon icon="circle-user"/></span>
-                        <Field name="email" type="text" class="form-control" placeholder="Ingrese su email"/>
+                        <Field v-model="usuario.email" name="email" type="text" class="form-control" placeholder="Ingrese su email"/>
                       </div>
                       <div class="input-errors mb-3">
                          <ErrorMessage name="email" class="error-feedback" />
@@ -21,15 +21,14 @@
                     <div class="form-group mb-2">
                     <div class="input-group flex-nowrap">
                       <span class="input-group-text" id="addon-wrapping"><font-awesome-icon icon="lock"/></span>
-                       <Field name="password" type="password" class="form-control" placeholder="Ingrese su password"/>
+                       <Field v-model="usuario.password" name="password" type="password" class="form-control" placeholder="Ingrese su password"/>
                       </div>
                       <div class="input-errors mb-3">
                          <ErrorMessage name="password" class="error-feedback" />
                       </div>           
                     </div>
                     <div class="form-group mt-2 mb-0">
-                      <button
-                        class="form-control btn btn-primary btn-block">
+                      <button v-on:click="login" class="form-control btn btn-primary btn-block">
                         Ingresar
                       </button>
                     </div>
@@ -50,6 +49,8 @@
 </template>
 
 <script>
+import { usuarioStore } from '../store/userStore'
+import axios from 'axios'
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 export default {
@@ -58,6 +59,14 @@ export default {
     Form,
     Field,
     ErrorMessage,
+  },
+  setup() {
+    const store = usuarioStore();
+    const {suNombre} = store;
+    const {loginOK} = store;
+    return {
+      store,suNombre,loginOK
+    }
   },
   data() {
     const schema = yup.object().shape({
@@ -76,8 +85,27 @@ export default {
       loading: false,
       message: "",
       schema,
-    };
-  }, 
+      usuario : {
+        email: '',
+        password:''   
+      }
+    };    
+  },
+  methods: {
+    async login() {
+        const res = await axios.post('http://localhost:5000/usuario/login',this.usuario);
+        console.log(res.status);
+        alert(`Codigo de respuesta: ${res.status}`)
+        /*
+        if (res.status==200) {
+          this.loginOK();
+          this.suNombre(res.data); 
+          this.$router.push('/home')
+        } else {
+          alert("Usuario o password inconrrecto");
+        }*/      
+    }
+  }
 };
 </script>
 
