@@ -1,7 +1,6 @@
 <template>
 
 <div>
-  <button @click="mostrar"> botonazo</button>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
   <a class="navbar-brand ms-4" >{{autor}}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,16 +24,21 @@
   </div>
     <div class="collapse navbar-collapse nav justify-content-end me-4">
     <ul class="navbar-nav mr-auto">
-      <div class="navbar-nav ml-auto" v-if="!autenticado">
-        <li class="nav-item">
+      <div class="navbar-nav ml-auto">
+        <li class="nav-item"  v-if="!autenticado">
           <router-link to="/registro" class="nav-link">
             <font-awesome-icon icon="user-astronaut" /> Registrarse
           </router-link>
         </li>   
-        <li class="nav-item">
+        <li class="nav-item"  v-if="!autenticado">
           <router-link to="/login" class="nav-link">
             <font-awesome-icon icon="sign-in-alt" /> Ingresar
           </router-link>
+        </li>
+        <li class="nav-item"  v-if="autenticado">
+          <a @click="logout" class="nav-link">
+            <font-awesome-icon icon="sign-out-alt" /> Log Out
+          </a>
         </li>
       </div>      
     </ul>
@@ -52,14 +56,16 @@ export default {
     setup() {
     const store = usuarioStore();
     const {autenticado} = storeToRefs(store);
+    const {userLogout} = store;
     return {
-      store,autenticado
+      store,autenticado,userLogout
     }
   },
   methods:{
-      mostrar(){
-        console.log(this.autenticado);
-      }
-    }  
+    logout() {
+      this.userLogout();
+      this.$router.push('/');
+    }
+  }  
 }
 </script>

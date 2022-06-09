@@ -30,10 +30,10 @@ const routes = [
 
     const authn = localStorage.getItem('usuario'); //se guarda en string
     const login = (authn=="true");
-    console.log(login);
-    console.log("*********");
+    //console.log(login);
+    //console.log("*********");
     if( to.matched.some(record => record.meta.requiresAuth ) && !login ) {
-      alert("No podes entrar ahí");  
+      alert("Capo, No podes entrar ahí asi como hiciste.");  
       next('/'); // no esta autorizado
     } else {        
         next();
