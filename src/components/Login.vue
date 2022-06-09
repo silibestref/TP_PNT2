@@ -28,7 +28,7 @@
                       </div>           
                     </div>
                     <div class="form-group mt-2 mb-0">
-                      <button v-on:click="login" class="form-control btn btn-primary btn-block">
+                      <button v-on:click="login" type="button" class="form-control btn btn-primary btn-block">
                         Ingresar
                       </button>
                     </div>
@@ -63,9 +63,9 @@ export default {
   setup() {
     const store = usuarioStore();
     const {autenticado} = store;
-    const {loginOK} = store;
+    const {loggearse} = store;
     return {
-      store,autenticado,loginOK
+      store,autenticado,loggearse
     }
   },
   data() {
@@ -95,10 +95,8 @@ export default {
     async login() {
       try{
         //revisar porque no toma el primer intento de login
-        const res = await axios.post('http://localhost:5000/usuario/login', this.usuario);
-        this.loginOK();
-        this.$router.push('/')
-        localStorage.setItem('usuario',JSON.stringify(this.autenticado));
+        const res = await this.loggearse(this.usuario);
+        this.$router.push('/');                     
       } catch (e) {
         console.log(e);
         alert("usuario o password incorrecto");
