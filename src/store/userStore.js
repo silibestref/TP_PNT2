@@ -32,8 +32,7 @@ export const usuarioStore = defineStore('main', {
                 }              
             } catch (e) {
                 console.log(`error en atrapado en el store ${e} `);
-            }
-            return this.autenticado;
+            }            
         }
 
     }
