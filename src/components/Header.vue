@@ -18,6 +18,7 @@
         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
           <li><router-link class="dropdown-item" to="/CarritoPeliculas">Alquilar Peliculas</router-link></li>
           <li><router-link class="dropdown-item" to="/ConfirmaAlquiler">Confirmar Alquiler</router-link></li>
+          <li><router-link class="dropdown-item" to="/HistorialAquileres">Mi Historial de Alquileres</router-link></li>
         </ul>
       </div>       
     </ul>

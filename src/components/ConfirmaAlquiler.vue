@@ -27,6 +27,11 @@
           </tbody>
         </table> 
       </div>
+        <div class="card-footer text-muted">
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="button" @click="confirmarAlquiler()">CONFIRMAR ALQUILER</button>
+          </div>
+        </div>
     </div>
 
     <!-- Modal -->
@@ -54,51 +59,72 @@
       </div>
     </div>
 
+      <div v-if="visible" class="alert alert-success mt-4" role="alert">
+        Alquiler realizado que disfrutes las peliculas!
+       </div>
 
   </div>       
 </template>
 
 <script>
-import { useStore } from "../store/storeCarrito.js";
+import { carritoStore } from "../store/storeCarrito.js";
 import { storeToRefs } from 'pinia'
 
 export default {
   setup() {
-    const store = useStore();
+    const store = carritoStore();
     const { listaAlquileres } = storeToRefs(store)
     const { listaAux } = storeToRefs(store)
+    const { historialAlquileres } = storeToRefs(store)
     return {
-      store, listaAlquileres, listaAux
+      store, listaAlquileres, listaAux, historialAlquileres
     };
     },
     data(){
       return {
+      visible: false,
       peliculaAEditar:{},
       selected:{id:0, title:'', year:'', ranking:0}
       }
     },
     methods: {
-    buscarPos(codigo){
-      return this.listaAlquileres.map(pel => pel.codigo).indexOf(codigo);
-    },
-    eliminarPelicula(codigo){
-      let pos = this.buscarPos(codigo);
-      if(pos >= 0){
-        this.listaAlquileres.splice(pos,1);
+      buscarPos(codigo){
+        return this.listaAlquileres.map(pel => pel.codigo).indexOf(codigo);
+      },
+      eliminarPelicula(codigo){
+        let pos = this.buscarPos(codigo);
+        if(pos >= 0){
+          this.listaAlquileres.splice(pos,1);
+        }
+      },
+      editarPelicula(codigo){
+        let pos = this.buscarPos(codigo);
+        this.peliculaAEditar = this.listaAlquileres[pos];
+      },
+      actualizarPelicula(pelicula) {
+        let pos = this.buscarPos(this.peliculaAEditar.codigo);
+        this.listaAlquileres[pos] = pelicula;
+        this.limpiarSelect();
+      },
+      limpiarSelect(){
+        this.selected = {id:0, title:'', year:'', ranking:0}
+      },
+      confirmarAlquiler(){
+        this.store.confirmarAlquiler(this.dameFecha());
+        this.mostrarMsj();
+      },
+      dameFecha(){
+        const fechaActual = new Date();
+        return `${fechaActual.getDate()}/${fechaActual.getMonth()}/${fechaActual.getFullYear()} ${fechaActual.getHours()}:${fechaActual.getMinutes()}:${fechaActual.getSeconds()}`;
+      },
+      mostrarMsj(){
+        this.visible = true;
+        setTimeout(this.ocultarMsj, 3000)
+      },
+      ocultarMsj(){
+        this.visible = false;
       }
-    },
-    editarPelicula(codigo){
-       let pos = this.buscarPos(codigo);
-       this.peliculaAEditar = this.listaAlquileres[pos];
-    },
-    actualizarPelicula(pelicula) {
-      let pos = this.buscarPos(this.peliculaAEditar.codigo);
-      this.listaAlquileres[pos] = pelicula;
-      this.limpiarSelect();
-    },
-    limpiarSelect(){
-      this.selected = {id:0, title:'', year:'', ranking:0}
-    }
+
   }
 }
 </script>
@@ -107,6 +133,10 @@ export default {
 
 .col-title {
   max-width:10em !important;
+}
+
+.alert-success{
+  text-align:center;
 }
 
 </style>

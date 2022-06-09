@@ -6,7 +6,7 @@
         <div class="mt-4">
         <select class="form-select form-select-lg mb-3" v-model="selected">
           <option selected disabled value=""> Elija una pelicula </option>
-          <option v-for="pelicula in peliculas" :value="{codigo:pelicula.id, titulo:pelicula.title, fecha:pelicula.year, calificacion: pelicula.imDbRating}" :key="pelicula">
+          <option v-for="pelicula in listaAux" :value="{codigo:pelicula.id, titulo:pelicula.title, fecha:pelicula.year, calificacion: pelicula.imDbRating}" :key="pelicula">
             {{ pelicula.title }}
           </option>
         </select>
@@ -14,7 +14,7 @@
           Ha seleccionado: <a href="#" class="alert-link">{{ selected.titulo }}</a>
         </div>
         <div class="d-grid gap-1">
-          <button class="btn btn-primary p-3 mt-4" @click="agregarPelicula(selected)">Agregar Pelicula</button>
+          <button class="btn btn-primary p-3 mt-4" @click="agregarPelicula()">Agregar Pelicula</button>
         </div>
       </div>
       </div>
@@ -49,46 +49,26 @@
 
 <script>
 
-import { useStore } from "../store/storeCarrito.js";
-import { storeToRefs } from 'pinia';
-import axios from "axios";
-const APIKEY = 'k_s3yrob4z';
-//const APIKEY = 'k_x7a3v98e'; 
-//const APIKEY = 'k_acl7u4gp';
-//const APIKEY = 'k_muq1swl8';
+import { carritoStore } from "../store/storeCarrito.js";
+import { storeToRefs } from 'pinia'
+
 export default {
   setup() {
-    const store = useStore();
-    const { listaAlquileres } = storeToRefs(store);
-    const { listaAux } = storeToRefs(store);
+    const store = carritoStore();
+    const { listaAlquileres } = storeToRefs(store)
+    const { listaAux } = storeToRefs(store)
     return {
       store, listaAlquileres, listaAux
     };
   },
   data() {
     return {
-      peliculas: [],
       selected:{id:0, title:'Elija una pelicula', year:'', ranking:0}
     }
   },
-  async created() {
-    try {
-      if(this.visible){
-        this.visible = false;
-      }
-      const res = await axios.get(
-        `https://imdb-api.com/en/API/MostPopularMovies/${APIKEY}`
-      );
-      this.peliculas = res.data.items;
-      this.store.listaAux = [...this.peliculas];
-    } 
-    catch (error) {
-      console.log(error);
-    } 
-  },
   methods: {
-    agregarPelicula(pelicula) {
-      this.store.agregarCompra(pelicula);
+    agregarPelicula() {
+       this.store.agregarPelicula(this.listaAlquileres,{...this.selected});
     }
   }
 };
