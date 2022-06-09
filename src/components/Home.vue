@@ -28,16 +28,23 @@
 
 <script>
 import axios from "axios";
-
+import { carritoStore } from "../store/storeCarrito.js";
+import { storeToRefs } from 'pinia'
 //const APIKEY = 'k_s3yrob4z';
-const APIKEY = 'k_x7a3v98e'; 
-//const APIKEY = 'k_acl7u4gp';
+//const APIKEY = 'k_x7a3v98e'; 
+const APIKEY = 'k_acl7u4gp';
 //const APIKEY = 'k_muq1swl8';
 export default { 
+  setup() {
+    const store = carritoStore();
+    const { listaAux } = storeToRefs(store)
+    return {
+      store, listaAux
+    };
+  },
   data() {
     return {
       peliculas: [],
-      listaAux: [],
       trailers: [],
       peli : {titulo:""},
       visible: false,
@@ -50,11 +57,13 @@ export default {
         if(this.visible){
           this.visible = false;
         }
+        if(this.peliculas.length === 0){
         const res = await axios.get(
           `https://imdb-api.com/en/API/MostPopularMovies/${APIKEY}`
         );
         this.peliculas = res.data.items;
         this.listaAux = [...this.peliculas];
+        }
       } 
       catch (error) {
         console.log(error);

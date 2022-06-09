@@ -6,8 +6,7 @@ import Usuario from "../components/Usuario.vue";
 import NotFound from "../components/NotFound.vue";
 import CarritoPeliculas from '../components/CarritoPeliculas.vue'
 import ConfirmaAlquiler from '../components/ConfirmaAlquiler.vue'
-import Favoritos from '../components/Favoritos.vue'
-import Historial from '../components/Historial.vue'
+import HistorialAquileres from '../components/HistorialAquileres.vue'
 
 const routes = [
     { path: '/', component: Home },
@@ -17,8 +16,7 @@ const routes = [
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
     { path: '/carritoPeliculas/', component: CarritoPeliculas , meta: {requiresAuth:true} },
     { path: '/confirmaAlquiler/', component: ConfirmaAlquiler , meta: {requiresAuth:true} },
-    { path: '/favoritos/', component: Favoritos },
-    { path: '/historial/', component: Historial },
+    { path: '/historialAquileres/', component: HistorialAquileres, meta: {requiresAuth:true} },
   ]
 
   const router = createRouter({
