@@ -92,16 +92,21 @@ export default {
     };    
   },
   methods: {
-    async login() {
+     async login() {
       try{
         //revisar porque no toma el primer intento de login
-        const res = await this.loggearse(this.usuario);
-        this.$router.push('/');                     
+        const ok = await this.loggearse(this.usuario);  
+        console.log("******* valor de OK:");
+        console.log(ok);
+        console.log("*******");        
+       if (ok) {       //aca esta el problema, la variable autenticado cuando llega aca sigue en false.
+          this.$router.push('/')
+        } else {
+          alert("usuario o password incorrecto");
+        }      
       } catch (e) {
-        console.log(e);
-        alert("usuario o password incorrecto");
-        this.$router.push('/')
-      }     
+        console.log(`error atrapado en el login: ${e}`);
+      }                   
     }
   }
 };
