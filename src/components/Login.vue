@@ -62,10 +62,10 @@ export default {
   },
   setup() {
     const store = usuarioStore();
-    const {suNombre} = store;
+    const {autenticado} = store;
     const {loginOK} = store;
     return {
-      store,suNombre,loginOK
+      store,autenticado,loginOK
     }
   },
   data() {
@@ -93,17 +93,17 @@ export default {
   },
   methods: {
     async login() {
-        const res = await axios.post('http://localhost:5000/usuario/login',this.usuario);
-        console.log(res.status);
-        alert(`Codigo de respuesta: ${res.status}`)
-        /*
-        if (res.status==200) {
-          this.loginOK();
-          this.suNombre(res.data); 
-          this.$router.push('/home')
-        } else {
-          alert("Usuario o password inconrrecto");
-        }*/      
+      try{
+        //revisar porque no toma el primer intento de login
+        const res = await axios.post('http://localhost:5000/usuario/login', this.usuario);
+        this.loginOK();
+        this.$router.push('/')
+        localStorage.setItem('usuario',JSON.stringify(this.autenticado));
+      } catch (e) {
+        console.log(e);
+        alert("usuario o password incorrecto");
+        this.$router.push('/')
+      }     
     }
   }
 };

@@ -50,7 +50,7 @@
 <script>
 
 import { useStore } from "../store/storeCarrito.js";
-import { storeToRefs } from 'pinia'
+import { storeToRefs } from 'pinia';
 import axios from "axios";
 const APIKEY = 'k_s3yrob4z';
 //const APIKEY = 'k_x7a3v98e'; 
@@ -59,8 +59,8 @@ const APIKEY = 'k_s3yrob4z';
 export default {
   setup() {
     const store = useStore();
-    const { listaAlquileres } = storeToRefs(store)
-    const { listaAux } = storeToRefs(store)
+    const { listaAlquileres } = storeToRefs(store);
+    const { listaAux } = storeToRefs(store);
     return {
       store, listaAlquileres, listaAux
     };

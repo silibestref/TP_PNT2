@@ -21,15 +21,12 @@ const guardarUsuario = function(usuario){
 const validarUsuario = function(user){
     let autenticado = false;    
     const listaUsuarios = listarUsuarios.call();
-    /*
-    for (let i = 0; i<2; i++) {
-        console.log(listaUsuarios[i]);
-    }
-    */
-    for (let u of listaUsuarios) {        
-		if (u.password == user.password) {
+    let nombre='';
+    for (let u of listaUsuarios) {    
+		if (u.password == user.password && u.email==user.email) {
             autenticado = true;
-        }
+            nombre = u.fullName;
+        }        
 	} 
     return autenticado;
 }
