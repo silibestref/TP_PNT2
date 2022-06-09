@@ -16,7 +16,7 @@
               <td class="col-title">{{ alquiler.titulo }} </td>
               <td>{{ alquiler.fechaActual }}</td>
               <td>
-                <a @click="agregarPelicula(alquiler)"><span class="btn btn-warning mt-1 ms-2"><font-awesome-icon icon="star"/></span></a>
+                <a @click="agregarPelicula(alquiler)" class="btn-outline-warning mt-1 ms-2"><font-awesome-icon icon="star"/></a>
               </td>
             </tr>            
           </tbody>
